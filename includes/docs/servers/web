@@ -270,6 +270,8 @@ Lets start with actionhero&rsquo;s default config:</p>
 
 <p>This would create both <code class="prettyprint">/api/myAction/old</code> and <code class="prettyprint">/api/myAction/new</code>, mapping to apiVersion 1 and 2 respectively.</p>
 
+<p>In your actions and middleware, if a route was matched, you can see the details of the match by inspecting <code class="prettyprint">data.connection.matchedRoute</code> which will include <code class="prettyprint">path</code> and <code class="prettyprint">action</code>.</p>
+
 <p>Finally, you can toggle an option, <code class="prettyprint">matchTrailingPathParts</code>, which allows the final segment of your route to absorb all trailing path parts in a matched variable.</p>
 <pre class="highlight javascript"><code><span class="nx">post</span><span class="err">:</span> <span class="p">[</span>
   <span class="c1">// yes match: site.com/api/123</span>
@@ -297,7 +299,7 @@ Lets start with actionhero&rsquo;s default config:</p>
 <span class="p">],</span>
 </code></pre>
 
-<p><strong>Note</strong>: In regular expressions used for routing, you cannot use the &ldquo;/&rdquo; character.   </p>
+<p><strong>Note</strong>: In regular expressions used for routing, you cannot use the &ldquo;/&rdquo; character.</p>
 
 <h4 id="notes">Notes</h4>
 
@@ -325,8 +327,6 @@ Lets start with actionhero&rsquo;s default config:</p>
 </ul></li>
 <li>The HTTP verbs which you can route against are: <code class="prettyprint">api.routes.verbs = [&#39;head&#39;, &#39;get&#39;, &#39;post&#39;, &#39;put&#39;, &#39;patch&#39;, &#39;delete&#39;]</code></li>
 </ul>
-
-<p><strong>example</strong>:</p>
 <pre class="highlight javascript"><code><span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
     <span class="na">get</span><span class="p">:</span> <span class="p">[</span>
