@@ -301,6 +301,18 @@ Lets start with actionhero&rsquo;s default config:</p>
 
 <p><strong>Note</strong>: In regular expressions used for routing, you cannot use the &ldquo;/&rdquo; character.</p>
 
+<h4 id="handling-static-folders-with-routes">Handling Static Folders with Routes</h4>
+
+<p>If you want map a special public folder to a given route you can use the &ldquo;dir&rdquo; parameter in your &ldquo;get&rdquo; routes in the routes.js file:</p>
+<pre class="highlight javascript"><code><span class="nx">get</span><span class="err">:</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'/my/special/folder'</span><span class="p">,</span> <span class="na">dir</span><span class="p">:</span> <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/../public/my/special/folder'</span><span class="p">,</span> <span class="na">matchTrailingPathParts</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
+<span class="p">],</span>
+</code></pre>
+
+<p>After mapping this route all files/folders within the mapped folder will be accessible on the route.</p>
+
+<p>You have to map the specified public folder within the &ldquo;dir&rdquo; parameter, relative to the routes.js file or absolute. Make sure to set &ldquo;matchTrailingPathParts&rdquo; to &ldquo;true&rdquo;, because when it is set to false, the route will never match when you request a file. (e.g.: site.com/my/special/folder/testfile.txt).</p>
+
 <h4 id="notes">Notes</h4>
 
 <ul>
