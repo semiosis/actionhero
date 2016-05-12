@@ -20,7 +20,7 @@
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connected'</span><span class="p">,</span>    <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'connected!'</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'disconnected'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'disconnected :('</span><span class="p">)</span> <span class="p">})</span>
 
-  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span>        <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span> <span class="p">})</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span>        <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'reconnect'</span><span class="p">,</span>    <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'reconnect'</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'reconnecting'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'reconnecting'</span><span class="p">)</span> <span class="p">})</span>
 
@@ -33,9 +33,9 @@
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">,</span>      <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span> <span class="nx">appendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'say'</span><span class="p">,</span>          <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span> <span class="nx">appendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span> <span class="p">})</span>
 
-  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">err</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">error</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
       <span class="nx">client</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">);</span>
       <span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'someAction'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
@@ -47,7 +47,7 @@
 <span class="nt">&lt;/script&gt;</span>
 </code></pre>
 
-<p><code class="prettyprint">connection.type</code> for a webSocket client is &ldquo;webSocket&rdquo;.  This type will not change regardless of if the client has fallen back to another protocol. </p>
+<p><code class="prettyprint">connection.type</code> for a webSocket client is &ldquo;webSocket&rdquo;.  This type will not change regardless of if the client has fallen back to another protocol.</p>
 
 <p>Data is always returned as JSON objects to the webSocket client.  </p>
 
@@ -87,7 +87,7 @@
 <h3 id="client-detailsview-callback">client.detailsView(callback)</h3>
 
 <ul>
-<li><code class="prettyprint">callback</code> will be passed <code class="prettyprint">error</code>, <code class="prettyprint">response</code> </li>
+<li><code class="prettyprint">callback</code> will be passed <code class="prettyprint">error</code>, <code class="prettyprint">response</code></li>
 <li>the first response from detailsView will also always be saved to <code class="prettyprint">client.details</code> for later inspection</li>
 <li>may contain an <code class="prettyprint">error</code></li>
 </ul>
@@ -95,7 +95,7 @@
 <h3 id="client-roomview-room-callback">client.roomView(room, callback)</h3>
 
 <ul>
-<li>will return metadata about the room </li>
+<li>will return metadata about the room</li>
 <li>may contain an <code class="prettyprint">error</code></li>
 </ul>
 
@@ -222,7 +222,7 @@
 <span class="c1">// should the server signal clients to not reconnect when the server is shutdown/reboot</span>
 <span class="nx">destroyClientsOnShutdown</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
 
-<span class="c1">// Primus Server Options: </span>
+<span class="c1">// Primus Server Options:</span>
 <span class="nx">server</span><span class="err">:</span> <span class="p">{</span>
   <span class="c1">// authorization: null,</span>
   <span class="c1">// pathname:      '/primus',</span>
@@ -238,7 +238,7 @@
   <span class="c1">// exposed:       false,</span>
 <span class="p">},</span>
 
-<span class="c1">// Priumus Client Options: </span>
+<span class="c1">// Priumus Client Options:</span>
 <span class="nx">client</span><span class="err">:</span> <span class="p">{</span>
   <span class="c1">// reconnect:        {},</span>
   <span class="c1">// timeout:          10000,</span>

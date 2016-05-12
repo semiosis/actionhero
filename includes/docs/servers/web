@@ -479,7 +479,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 
 <span class="nt">&lt;script&gt;</span>
 <span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActionheroClient</span><span class="p">();</span>
-<span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'cacheTest'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'cacheTest'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
    <span class="c1">// do stuff</span>
 <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>

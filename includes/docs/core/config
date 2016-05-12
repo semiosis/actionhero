@@ -6,7 +6,7 @@
 
 <p>The normal way to deal with configuration changes is to use the files in <code class="prettyprint">/config/</code> and to have special options for each environment.  First we load in all settings from the <code class="prettyprint">default</code> config block, and then we replace those with anything defined in the relevant <code class="prettyprint">environment</code> section.  actionhero uses the standard node environment variable <code class="prettyprint">NODE_ENV</code> to determine environment, and defaults to &lsquo;development&rsquo; when one isn&rsquo;t found.  This pattern is very similar the Rails and Sails frameworks.  A good way to visualize this is to note that, by default, the web server will return metadata in response JSON, but we change that in the production NODE_ENV and disable it.</p>
 <pre class="highlight javascript"><code>
-<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span> 
+<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">general</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">){</span>
     <span class="k">return</span> <span class="p">{</span>  
       <span class="c1">//...</span>
@@ -16,7 +16,7 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">exports</span><span class="p">.</span><span class="nx">production</span> <span class="o">=</span> <span class="p">{</span> 
+<span class="nx">exports</span><span class="p">.</span><span class="nx">production</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">general</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">){</span>
     <span class="k">return</span> <span class="p">{</span>  
       <span class="na">developmentMode</span><span class="p">:</span> <span class="kc">false</span>
@@ -53,14 +53,14 @@
 <span class="p">}</span>
 
 <span class="c1">// start the server!</span>
-<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
   <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Boot Successful!"</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre>
 
 <h2 id="boot-options">Boot Options</h2>
 
-<p>When launching actionhero you can specify which config directory to use with <code class="prettyprint">--config=/path/to/dir</code> or the environment variable <code class="prettyprint">ACTIONHERO_CONFIG</code>, otherwise <code class="prettyprint">/config/</code> will be used from your working directory. </p>
+<p>When launching actionhero you can specify which config directory to use with <code class="prettyprint">--config=/path/to/dir</code> or the environment variable <code class="prettyprint">ACTIONHERO_CONFIG</code>, otherwise <code class="prettyprint">/config/</code> will be used from your working directory.</p>
 
 <p>The priority of arguments is:</p>
 

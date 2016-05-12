@@ -51,7 +51,7 @@
 <span class="nx">describe</span><span class="p">(</span><span class="s1">'Action: RandomNumber'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
 
   <span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">){</span>
-    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
       <span class="nx">api</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
       <span class="nx">done</span><span class="p">();</span>
     <span class="p">})</span>

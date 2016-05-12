@@ -113,19 +113,19 @@ Descriptions:
 <span class="kd">var</span> <span class="nx">actionhero</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">actionheroPrototype</span><span class="p">();</span>
 
 <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">;</span>
-<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
   <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Boot Successful!"</span><span class="p">);</span>
   <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
     <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; restarting server..."</span><span class="p">);</span>
-    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">restart</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">restart</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
       <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Restarted!"</span><span class="p">);</span>
       <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
         <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; stopping server..."</span><span class="p">);</span>
-        <span class="nx">actionhero</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+        <span class="nx">actionhero</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
           <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Stopped!"</span><span class="p">);</span>
           <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
@@ -209,7 +209,7 @@ notice: cluster <span class="nb">complete</span>, Bye!
 
 <p>When using <code class="prettyprint">actionhero start</code> or <code class="prettyprint">actionhero startCluster</code>, when you signal actionhero to stop via the signals above (or from within your running application via <code class="prettyprint">api.commands.stop()</code>), actionhero will attempt to gracefully shutdown.  This will include running any initializer&rsquo;s <code class="prettyprint">stop()</code> method.  This will close any open servers, and attempt to allow any running tasks to complete.</p>
 
-<p>Because things sometimes go wrong, <code class="prettyprint">actionhero start</code> and <code class="prettyprint">actionhero startCluster</code> also have a &ldquo;emergency stop&rdquo; timeout.  This defaults to 30 seconds, and is configurable via the <code class="prettyprint">ACTIONHERO_SHUTDOWN_TIMEOUT</code> environment variable.  Be sure that your tasks and actions can complete within that window, or else raise that shutdown limit. </p>
+<p>Because things sometimes go wrong, <code class="prettyprint">actionhero start</code> and <code class="prettyprint">actionhero startCluster</code> also have a &ldquo;emergency stop&rdquo; timeout.  This defaults to 30 seconds, and is configurable via the <code class="prettyprint">ACTIONHERO_SHUTDOWN_TIMEOUT</code> environment variable.  Be sure that your tasks and actions can complete within that window, or else raise that shutdown limit.</p>
 
 <h2 id="windows-specific-notes">Windows-Specific Notes</h2>
 

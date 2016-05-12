@@ -164,7 +164,7 @@ Connected to localhost.
     <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span>
     <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span>
     <span class="s1">'default'</span><span class="p">,</span>
-<span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
   <span class="c1">// done!</span>
 <span class="p">});</span>
 
@@ -174,8 +174,8 @@ Connected to localhost.
   <span class="na">queue</span><span class="p">:</span>         <span class="s2">"default"</span><span class="p">,</span>
   <span class="na">frequency</span><span class="p">:</span>     <span class="mi">0</span><span class="p">,</span>
   <span class="na">run</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
-    <span class="nx">api</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">);</span> <span class="p">}</span>
+    <span class="nx">api</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span> <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">);</span> <span class="p">}</span>
       <span class="nx">next</span><span class="p">();</span>
     <span class="p">})</span>
   <span class="p">}</span>

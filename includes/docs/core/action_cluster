@@ -14,7 +14,7 @@
 
 <h2 id="rpc">RPC</h2>
 <pre class="highlight javascript"><code><span class="c1">// This will ask all nodes connected to the cluster if they have connection #`abc123` and if they do, run `connection.set('auth', true) on it`</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="s1">'abc123'</span><span class="p">,</span> <span class="s1">'set'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'auth'</span><span class="p">,</span> <span class="kc">true</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="s1">'abc123'</span><span class="p">,</span> <span class="s1">'set'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'auth'</span><span class="p">,</span> <span class="kc">true</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
   <span class="c1">// do stuff</span>
 <span class="p">});</span>
 </code></pre>
@@ -44,7 +44,7 @@
 <ul>
 <li>connectionId is required</li>
 <li>if <code class="prettyprint">method</code> and <code class="prettyprint">args</code> can be ignored if you just want to retirve information abou a connection, IE: <code class="prettyprint">api.connections.apply(connectionId, callback)</code></li>
-<li><code class="prettyprint">callback</code> is of the form <code class="prettyprint">function(err, connectionDetails)</code></li>
+<li><code class="prettyprint">callback</code> is of the form <code class="prettyprint">function(error, connectionDetails)</code></li>
 </ul>
 
 <h2 id="generic-pub-sub">Generic Pub/Sub</h2>

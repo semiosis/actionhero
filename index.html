@@ -195,7 +195,7 @@ client.connect<span class="o">(</span><span class="k">function</span><span class
         <h4>... and you can invoke the task from anywhere in the framework, including actions.</h4>
 
 <pre class="highlight javascript"><code><span class="c1">// api.tasks.enqueue(nameOfTask, args, queue, callback)</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="s2">"sendEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="s2">"sendEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
   <span class="c1">// enqueued!</span>
 <span class="p">});</span>
 </code></pre>
@@ -211,7 +211,7 @@ client.connect<span class="o">(</span><span class="k">function</span><span class
 <pre class="highlight javascript"><code><span class="c1">// client 1</span>
 <span class="kd">var</span> <span class="nx">client1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActionheroClient</span><span class="p">;</span>
 <span class="nx">client1</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
-    <span class="nx">client1</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"myChatRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="nx">client1</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"myChatRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
         <span class="nx">client1</span><span class="p">.</span><span class="nx">say</span><span class="p">(</span><span class="s1">'myChatRoom'</span><span class="p">,</span> <span class="s1">'hello from client 1'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span>
@@ -219,7 +219,7 @@ client.connect<span class="o">(</span><span class="k">function</span><span class
 <span class="c1">// client 2</span>
 <span class="kd">var</span> <span class="nx">client2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActionheroClient</span><span class="p">;</span>
 <span class="nx">client2</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
-    <span class="nx">client2</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"myChatRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+    <span class="nx">client2</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"myChatRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
         <span class="nx">client2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'say'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
         <span class="p">});</span>

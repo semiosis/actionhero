@@ -607,19 +607,19 @@ package.json <span class="o">(</span>be sure to include <span class="s1">'action
 <h2 id="enqueuing-a-task">Enqueuing a Task</h2>
 <pre class="highlight javascript"><code><span class="c1">// Enqueue the task now, and process it ASAP</span>
 <span class="c1">// api.tasks.enqueue(nameOfTask, args, queue, callback)</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
   <span class="c1">// enqueued!</span>
 <span class="p">});</span>
 
 <span class="c1">// Enqueue the task now, and process it once `timestamp` has arrived</span>
 <span class="c1">// api.tasks.enqueueAt(timestamp, nameOfTask, args, queue, callback)</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueueAt</span><span class="p">(</span><span class="mi">1234556</span><span class="p">,</span> <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueueAt</span><span class="p">(</span><span class="mi">1234556</span><span class="p">,</span> <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
   <span class="c1">// enqueued!</span>
 <span class="p">});</span>
 
 <span class="c1">// Enqueue the task now, and process it once `delay` (ms) has passed</span>
 <span class="c1">// api.tasks.enqueueIn(delay, nameOfTask, args, queue, callback)</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueueIn</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueueIn</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span> <span class="p">{</span><span class="na">to</span><span class="p">:</span> <span class="s1">'evan@evantahler.com'</span><span class="p">},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
   <span class="c1">// enqueued!</span>
 <span class="p">});</span>
 </code></pre>
@@ -637,7 +637,7 @@ package.json <span class="o">(</span>be sure to include <span class="s1">'action
 <h2 id="processing-tasks">Processing Tasks</h2>
 <pre class="highlight javascript"><code><span class="c1">// From /config/tasks.js:</span>
 
-<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span> 
+<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">tasks</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">){</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="c1">// Should this node run a scheduler to promote delayed tasks?</span>
@@ -647,7 +647,7 @@ package.json <span class="o">(</span>be sure to include <span class="s1">'action
       <span class="c1">// Logging levels of task workers</span>
       <span class="na">workerLogging</span> <span class="p">:</span> <span class="p">{</span>
         <span class="na">failure</span>   <span class="p">:</span> <span class="s1">'error'</span><span class="p">,</span> <span class="c1">// task failure</span>
-        <span class="na">success</span>   <span class="p">:</span> <span class="s1">'info'</span><span class="p">,</span>  <span class="c1">// task success </span>
+        <span class="na">success</span>   <span class="p">:</span> <span class="s1">'info'</span><span class="p">,</span>  <span class="c1">// task success</span>
         <span class="na">start</span>     <span class="p">:</span> <span class="s1">'info'</span><span class="p">,</span>
         <span class="na">end</span>       <span class="p">:</span> <span class="s1">'info'</span><span class="p">,</span>
         <span class="na">cleaning_worker</span> <span class="p">:</span> <span class="s1">'info'</span><span class="p">,</span>
@@ -705,12 +705,12 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
   <span class="na">name</span><span class="p">:</span>          <span class="s2">"sendWelcomeEmail"</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span>   <span class="s2">"I will send a new user a welcome email"</span><span class="p">,</span>
   <span class="na">queue</span><span class="p">:</span>         <span class="s2">"default"</span><span class="p">,</span>
-  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span> 
-  <span class="na">pluginOptions</span><span class="p">:</span> <span class="p">[],</span> 
+  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span>
+  <span class="na">pluginOptions</span><span class="p">:</span> <span class="p">[],</span>
   <span class="na">frequency</span><span class="p">:</span>     <span class="mi">0</span><span class="p">,</span>
   <span class="na">run</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
-    <span class="nx">api</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-      <span class="nx">next</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="c1">//task will fail if sendEmail does</span>
+    <span class="nx">api</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
+      <span class="nx">next</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span> <span class="c1">//task will fail if sendEmail does</span>
     <span class="p">})</span>
   <span class="p">}</span>
 <span class="p">};</span>
@@ -723,7 +723,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
   <span class="na">name</span><span class="p">:</span>          <span class="s1">'sayHello'</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span>   <span class="s1">'I say hello'</span><span class="p">,</span>
   <span class="na">queue</span><span class="p">:</span>         <span class="s2">"default"</span><span class="p">,</span>
-  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span> 
+  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span>
   <span class="na">pluginOptions</span><span class="p">:</span> <span class="p">[],</span>
   <span class="na">frequency</span><span class="p">:</span>     <span class="mi">1000</span><span class="p">,</span>
   <span class="na">run</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
@@ -736,7 +736,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
   <span class="na">name</span><span class="p">:</span>          <span class="s1">'sayGoodbye'</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span>   <span class="s1">'I say goodbye'</span><span class="p">,</span>
   <span class="na">queue</span><span class="p">:</span>         <span class="s2">"default"</span><span class="p">,</span>
-  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span> 
+  <span class="na">plugins</span><span class="p">:</span>       <span class="p">[],</span>
   <span class="na">pluginOptions</span><span class="p">:</span> <span class="p">[],</span>
   <span class="na">frequency</span><span class="p">:</span>     <span class="mi">2000</span><span class="p">,</span>
   <span class="na">run</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
@@ -775,10 +775,10 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <ul>
 <li><code class="prettyprint">api</code>: The actionhero api object</li>
 <li><code class="prettyprint">params</code>: An array of parameters that the task was enqueued with. This is whatever was passed as the second argument to <code class="prettyprint">api.tasks.enqueue</code></li>
-<li><code class="prettyprint">next</code>: A callback to call when the task is done. This callback is of the type <code class="prettyprint">function(error, result)</code>. 
+<li><code class="prettyprint">next</code>: A callback to call when the task is done. This callback is of the type <code class="prettyprint">function(error, result)</code>.
 
 <ul>
-<li>Passing an <code class="prettyprint">error</code> object will cause the job to be marked as a failure. </li>
+<li>Passing an <code class="prettyprint">error</code> object will cause the job to be marked as a failure.</li>
 <li>The result is currently not captured anywhere.</li>
 </ul></li>
 </ul>
@@ -790,7 +790,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-scheduledat-queue-taskname-args-next">api.tasks.scheduledAt(queue, taskName, args, next)</h3>
 
 <ul>
-<li>next(err, timestamps)</li>
+<li>next(error, timestamps)</li>
 <li>finds all matching instances of queue + taskName + args from the delayed queues</li>
 <li>timestamps will be an array of the delayed timestamps</li>
 </ul>
@@ -798,7 +798,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-del-queue-taskname-args-count-next">api.tasks.del(queue, taskName, args, count, next)</h3>
 
 <ul>
-<li>next(err, count)</li>
+<li>next(error, count)</li>
 <li>removes all matching instances of queue + taskName + args from the normal queues</li>
 <li>count is how many instances of this task were removed</li>
 </ul>
@@ -806,7 +806,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-deldelayed-queue-taskname-args-next">api.tasks.delDelayed(queue, taskName, args, next)</h3>
 
 <ul>
-<li>next(err, timestamps)</li>
+<li>next(error, timestamps)</li>
 <li>removes all matching instances of queue + taskName + args from the delayed queues</li>
 <li>timestamps will be an array of the delayed timestamps which the task was removed from</li>
 </ul>
@@ -822,7 +822,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-stoprecurrentjob-taskname-next">api.tasks.stopRecurrentJob(taskName, next)</h3>
 
 <ul>
-<li>next(err, removedCount)</li>
+<li>next(error, removedCount)</li>
 <li>will remove all instances of <code class="prettyprint">taskName</code> from the delayed queues and normal queues</li>
 <li>removedCount will inform you of how many instances of this job were removed</li>
 </ul>
@@ -830,50 +830,50 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-timestamps-next">api.tasks.timestamps(next)</h3>
 
 <ul>
-<li>next(err, timestamps)</li>
-<li>will return an array of all timesamps which have at least one job scheduled to be run </li>
+<li>next(error, timestamps)</li>
+<li>will return an array of all timesamps which have at least one job scheduled to be run</li>
 <li>for use with <code class="prettyprint">api.tasks.delayedAt</code></li>
 </ul>
 
 <h3 id="api-tasks-delayedat-timestamp-next">api.tasks.delayedAt(timestamp, next)</h3>
 
 <ul>
-<li>next(err, jobs)</li>
+<li>next(error, jobs)</li>
 <li>will return the list of jobs enqueued to run after this timestamp</li>
 </ul>
 
 <h3 id="api-tasks-alldelayed-next">api.tasks.allDelayed(next)</h3>
 
 <ul>
-<li>next(err, jobs)</li>
+<li>next(error, jobs)</li>
 <li>will return the list of all jobs enqueued by the timestamp they are enqueued to run at</li>
 </ul>
 
 <h3 id="api-tasks-workers-next">api.tasks.workers(next)</h3>
 
 <ul>
-<li>next(err, workers)</li>
+<li>next(error, workers)</li>
 <li>list all taskProcessors</li>
 </ul>
 
 <h3 id="api-tasks-workingon-workername-queues-next">api.tasks.workingOn(workerName, queues, next)</h3>
 
 <ul>
-<li>next(err, status)</li>
+<li>next(error, status)</li>
 <li>list what a specific taskProcessors (defined by the name of the server + queues) is working on (or sleeping)</li>
 </ul>
 
 <h3 id="api-tasks-allworkingon-next">api.tasks.allWorkingOn(next)</h3>
 
 <ul>
-<li>next(err, workers)</li>
+<li>next(error, workers)</li>
 <li>list what all taskProcessors are working on (or sleeping)</li>
 </ul>
 
 <h3 id="api-tasks-details-next">api.tasks.details(next)</h3>
 
 <ul>
-<li>next(err, details)</li>
+<li>next(error, details)</li>
 <li>details is a hash of all the queues in the system and how long they are</li>
 <li>this method also returns metadata about the taskProcessors and what they are currently working on</li>
 </ul>
@@ -881,29 +881,29 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <h3 id="api-tasks-failedcount-next">api.tasks.failedCount(next)</h3>
 
 <ul>
-<li>next(err, failedCount)</li>
+<li>next(error, failedCount)</li>
 <li><code class="prettyprint">failedCount</code> is how many resque jobs are in the failed queue.</li>
 </ul>
 
 <h3 id="api-tasks-failed-start-stop-next">api.tasks.failed(start, stop, next)</h3>
 
 <ul>
-<li>next(err, failedJobs)</li>
+<li>next(error, failedJobs)</li>
 <li><code class="prettyprint">failedJobs</code> is an array listing the data of the failed jobs.  You can see an example at https://github.com/taskrabbit/node-resque#failed-job-managment</li>
 </ul>
 
 <h3 id="api-tasks-removefailed-failedjob-next">api.tasks.removeFailed(failedJob, next)</h3>
 
 <ul>
-<li>next(err, removedCount)</li>
+<li>next(error, removedCount)</li>
 <li>the input <code class="prettyprint">failedJob</code> is an expanded node object representing the failed job, retrieved via <code class="prettyprint">api.tasks.failed</code></li>
 </ul>
 
 <h3 id="api-tasks-retryandremovefailed-failedjob-next">api.tasks.retryAndRemoveFailed(failedJob, next)</h3>
 
 <ul>
-<li>next(err, failedJob)</li>
-<li>the input <code class="prettyprint">failedJob</code> is an expanded node object representing the failed job, retrieved via <code class="prettyprint">api.tasks.failed</code></li>
+<li>next(error, failedJob)</li>
+<li>the error <code class="prettyprint">failedJob</code> is an expanded node object representing the failed job, retrieved via <code class="prettyprint">api.tasks.failed</code></li>
 </ul>
 
 <h2 id="job-schedules">Job Schedules</h2>
@@ -920,11 +920,11 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
   <span class="na">start</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
 
     <span class="c1">// do this job every 10 seconds, cron style</span>
-    <span class="kd">var</span> <span class="nx">job</span> <span class="o">=</span> <span class="nx">schedule</span><span class="p">.</span><span class="nx">scheduleJob</span><span class="p">(</span><span class="s1">'0,10,20,30,40,50 * * * * *'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> 
-      <span class="c1">// we want to ensure that only one instance of this job is scheduled in our environment at once, </span>
+    <span class="kd">var</span> <span class="nx">job</span> <span class="o">=</span> <span class="nx">schedule</span><span class="p">.</span><span class="nx">scheduleJob</span><span class="p">(</span><span class="s1">'0,10,20,30,40,50 * * * * *'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="c1">// we want to ensure that only one instance of this job is scheduled in our environment at once,</span>
       <span class="c1">// no matter how many schedulers we have running</span>
 
-      <span class="k">if</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">resque</span><span class="p">.</span><span class="nx">scheduler</span> <span class="o">&amp;&amp;</span> <span class="nx">api</span><span class="p">.</span><span class="nx">resque</span><span class="p">.</span><span class="nx">scheduler</span><span class="p">.</span><span class="nx">master</span><span class="p">){</span> 
+      <span class="k">if</span><span class="p">(</span><span class="nx">api</span><span class="p">.</span><span class="nx">resque</span><span class="p">.</span><span class="nx">scheduler</span> <span class="o">&amp;&amp;</span> <span class="nx">api</span><span class="p">.</span><span class="nx">resque</span><span class="p">.</span><span class="nx">scheduler</span><span class="p">.</span><span class="nx">master</span><span class="p">){</span>
         <span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="s1">'sayHello'</span><span class="p">,</span> <span class="p">{</span><span class="na">time</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toString</span><span class="p">()},</span> <span class="s1">'default'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
           <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span> <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">);</span> <span class="p">}</span>
         <span class="p">});</span>
@@ -950,15 +950,15 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 
 <p>Assuming you are running actionhero across multiple machines, you will need to ensure that only one of your processes is actually scheduling the jobs.  To help you with this, you can inspect which of the scheduler processes is correctly acting as master, and flag only the master scheduler process to run the schedule.  An <a href="/docs#initializers">initializer for this</a> would look like:</p>
 
-<p>Be sure to have the scheduler enabled on at least one of your actionhero servers! </p>
+<p>Be sure to have the scheduler enabled on at least one of your actionhero servers!</p>
 
 <h2 id="failed-job-management">Failed Job Management</h2>
 <pre class="highlight javascript"><code>
 <span class="kd">var</span> <span class="nx">removeStuckWorkersOlderThan</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// 10000ms</span>
 <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'removing stuck workers solder than '</span> <span class="o">+</span> <span class="nx">removeStuckWorkersOlderThan</span> <span class="o">+</span> <span class="s1">'ms'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">);</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">cleanOldWorkers</span><span class="p">(</span><span class="nx">removeStuckWorkersOlderThan</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-    <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">);</span> 
+<span class="nx">api</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">cleanOldWorkers</span><span class="p">(</span><span class="nx">removeStuckWorkersOlderThan</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
+    <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">if</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
     <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'removed stuck workers with errors: '</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
@@ -972,7 +972,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 
 <p>Because there are no &#39;heartbeats&rsquo; in resque, it is impossible for the application to know if a worker has been working on a long job or it is dead. You are required to provide an &ldquo;age&rdquo; for how long a worker has been &ldquo;working&rdquo;, and all those older than that age will be removed, and the job they are working on moved to the error queue (where you can then use <code class="prettyprint">api.tasks.retryAndRemoveFailed</code>) to re-enqueue the job.</p>
 
-<p>You can handle this with an own initializer and the following logic =&gt; </p>
+<p>You can handle this with an own initializer and the following logic =&gt;</p>
 
 <h2 id="notes">Notes</h2>
 
@@ -1023,14 +1023,14 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">data</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userId</span><span class="p">){</span>
       <span class="nx">next</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'All actions require a userId'</span><span class="p">)</span> <span class="p">);</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-      <span class="nx">next</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="nx">next</span><span class="p">();</span>
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="na">postProcessor</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">thing</span><span class="p">.</span><span class="nx">stuff</span> <span class="o">==</span> <span class="kc">false</span><span class="p">){</span>
       <span class="nx">data</span><span class="p">.</span><span class="nx">toRender</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="nx">next</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -1210,7 +1210,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 
 <h2 id="rpc">RPC</h2>
 <pre class="highlight javascript"><code><span class="c1">// This will ask all nodes connected to the cluster if they have connection #`abc123` and if they do, run `connection.set('auth', true) on it`</span>
-<span class="nx">api</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="s1">'abc123'</span><span class="p">,</span> <span class="s1">'set'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'auth'</span><span class="p">,</span> <span class="kc">true</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+<span class="nx">api</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="s1">'abc123'</span><span class="p">,</span> <span class="s1">'set'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'auth'</span><span class="p">,</span> <span class="kc">true</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
   <span class="c1">// do stuff</span>
 <span class="p">});</span>
 </code></pre>
@@ -1240,7 +1240,7 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <ul>
 <li>connectionId is required</li>
 <li>if <code class="prettyprint">method</code> and <code class="prettyprint">args</code> can be ignored if you just want to retirve information abou a connection, IE: <code class="prettyprint">api.connections.apply(connectionId, callback)</code></li>
-<li><code class="prettyprint">callback</code> is of the form <code class="prettyprint">function(err, connectionDetails)</code></li>
+<li><code class="prettyprint">callback</code> is of the form <code class="prettyprint">function(error, connectionDetails)</code></li>
 </ul>
 
 <h2 id="generic-pub-sub">Generic Pub/Sub</h2>
@@ -2985,7 +2985,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 
 <span class="nt">&lt;script&gt;</span>
 <span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActionheroClient</span><span class="p">();</span>
-<span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'cacheTest'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'cacheTest'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
    <span class="c1">// do stuff</span>
 <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>
@@ -3015,7 +3015,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connected'</span><span class="p">,</span>    <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'connected!'</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'disconnected'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'disconnected :('</span><span class="p">)</span> <span class="p">})</span>
 
-  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span>        <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span> <span class="p">})</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span>        <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'reconnect'</span><span class="p">,</span>    <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'reconnect'</span><span class="p">)</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'reconnecting'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'reconnecting'</span><span class="p">)</span> <span class="p">})</span>
 
@@ -3028,9 +3028,9 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">,</span>      <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span> <span class="nx">appendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span> <span class="p">})</span>
   <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'say'</span><span class="p">,</span>          <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">){</span> <span class="nx">appendMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span> <span class="p">})</span>
 
-  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">err</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">details</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">error</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
       <span class="nx">client</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">);</span>
       <span class="nx">client</span><span class="p">.</span><span class="nx">action</span><span class="p">(</span><span class="s1">'someAction'</span><span class="p">,</span> <span class="p">{</span><span class="na">key</span><span class="p">:</span> <span class="s1">'k'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s1">'v'</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
@@ -3042,7 +3042,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 <span class="nt">&lt;/script&gt;</span>
 </code></pre>
 
-<p><code class="prettyprint">connection.type</code> for a webSocket client is &ldquo;webSocket&rdquo;.  This type will not change regardless of if the client has fallen back to another protocol. </p>
+<p><code class="prettyprint">connection.type</code> for a webSocket client is &ldquo;webSocket&rdquo;.  This type will not change regardless of if the client has fallen back to another protocol.</p>
 
 <p>Data is always returned as JSON objects to the webSocket client.  </p>
 
@@ -3082,7 +3082,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 <h3 id="client-detailsview-callback">client.detailsView(callback)</h3>
 
 <ul>
-<li><code class="prettyprint">callback</code> will be passed <code class="prettyprint">error</code>, <code class="prettyprint">response</code> </li>
+<li><code class="prettyprint">callback</code> will be passed <code class="prettyprint">error</code>, <code class="prettyprint">response</code></li>
 <li>the first response from detailsView will also always be saved to <code class="prettyprint">client.details</code> for later inspection</li>
 <li>may contain an <code class="prettyprint">error</code></li>
 </ul>
@@ -3090,7 +3090,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 <h3 id="client-roomview-room-callback">client.roomView(room, callback)</h3>
 
 <ul>
-<li>will return metadata about the room </li>
+<li>will return metadata about the room</li>
 <li>may contain an <code class="prettyprint">error</code></li>
 </ul>
 
@@ -3217,7 +3217,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
 <span class="c1">// should the server signal clients to not reconnect when the server is shutdown/reboot</span>
 <span class="nx">destroyClientsOnShutdown</span><span class="err">:</span> <span class="kc">false</span><span class="p">,</span>
 
-<span class="c1">// Primus Server Options: </span>
+<span class="c1">// Primus Server Options:</span>
 <span class="nx">server</span><span class="err">:</span> <span class="p">{</span>
   <span class="c1">// authorization: null,</span>
   <span class="c1">// pathname:      '/primus',</span>
@@ -3233,7 +3233,7 @@ In this case, we set the array to the param key <code class="prettyprint">payloa
   <span class="c1">// exposed:       false,</span>
 <span class="p">},</span>
 
-<span class="c1">// Priumus Client Options: </span>
+<span class="c1">// Priumus Client Options:</span>
 <span class="nx">client</span><span class="err">:</span> <span class="p">{</span>
   <span class="c1">// reconnect:        {},</span>
   <span class="c1">// timeout:          10000,</span>
@@ -3373,8 +3373,8 @@ randomNumber
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"WELCOME: "</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ERROR: "</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"error"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"ERROR: "</span> <span class="o">+</span> <span class="nx">error</span><span class="p">);</span>
   <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="p">}</span>
 <span class="p">});</span>
 
@@ -3382,7 +3382,7 @@ randomNumber
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Connection Ended"</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"timeout"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">caller</span><span class="p">){</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"timeout"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">request</span><span class="p">,</span> <span class="nx">caller</span><span class="p">){</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request</span> <span class="o">+</span> <span class="s2">" timed out"</span><span class="p">);</span>
 <span class="p">});</span>
 
@@ -3395,13 +3395,13 @@ randomNumber
 
   <span class="c1">// try an action</span>
   <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="s2">"mykey"</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="s2">"myValue"</span> <span class="p">};</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">actionWithParams</span><span class="p">(</span><span class="s2">"cacheTest"</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">apiResponse</span><span class="p">,</span> <span class="nx">delta</span><span class="p">){</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">actionWithParams</span><span class="p">(</span><span class="s2">"cacheTest"</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">apiResponse</span><span class="p">,</span> <span class="nx">delta</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"cacheTest action response: "</span> <span class="o">+</span> <span class="nx">apiResponse</span><span class="p">.</span><span class="nx">cacheTestResults</span><span class="p">.</span><span class="nx">saveResp</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" ~ request duration: "</span> <span class="o">+</span> <span class="nx">delta</span> <span class="o">+</span> <span class="s2">"ms"</span><span class="p">);</span>
   <span class="p">});</span>
 
   <span class="c1">// join a chat room and talk</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">roomAdd</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">){</span>
     <span class="nx">client</span><span class="p">.</span><span class="nx">say</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">,</span> <span class="s2">"Hello from the actionheroClient"</span><span class="p">);</span>
     <span class="nx">client</span><span class="p">.</span><span class="nx">roomLeave</span><span class="p">(</span><span class="s2">"defaultRoom"</span><span class="p">);</span>
   <span class="p">});</span>
@@ -3900,19 +3900,19 @@ Descriptions:
 <span class="kd">var</span> <span class="nx">actionhero</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">actionheroPrototype</span><span class="p">();</span>
 
 <span class="kd">var</span> <span class="nx">timer</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">;</span>
-<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+<span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
   <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Boot Successful!"</span><span class="p">);</span>
   <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
     <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; restarting server..."</span><span class="p">);</span>
-    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">restart</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">restart</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
       <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Restarted!"</span><span class="p">);</span>
       <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 
         <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; stopping server..."</span><span class="p">);</span>
-        <span class="nx">actionhero</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
+        <span class="nx">actionhero</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">api</span><span class="p">){</span>
 
           <span class="nx">api</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">" &gt;&gt; Stopped!"</span><span class="p">);</span>
           <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
@@ -3996,7 +3996,7 @@ notice: cluster <span class="nb">complete</span>, Bye!
 
 <p>When using <code class="prettyprint">actionhero start</code> or <code class="prettyprint">actionhero startCluster</code>, when you signal actionhero to stop via the signals above (or from within your running application via <code class="prettyprint">api.commands.stop()</code>), actionhero will attempt to gracefully shutdown.  This will include running any initializer&rsquo;s <code class="prettyprint">stop()</code> method.  This will close any open servers, and attempt to allow any running tasks to complete.</p>
 
-<p>Because things sometimes go wrong, <code class="prettyprint">actionhero start</code> and <code class="prettyprint">actionhero startCluster</code> also have a &ldquo;emergency stop&rdquo; timeout.  This defaults to 30 seconds, and is configurable via the <code class="prettyprint">ACTIONHERO_SHUTDOWN_TIMEOUT</code> environment variable.  Be sure that your tasks and actions can complete within that window, or else raise that shutdown limit. </p>
+<p>Because things sometimes go wrong, <code class="prettyprint">actionhero start</code> and <code class="prettyprint">actionhero startCluster</code> also have a &ldquo;emergency stop&rdquo; timeout.  This defaults to 30 seconds, and is configurable via the <code class="prettyprint">ACTIONHERO_SHUTDOWN_TIMEOUT</code> environment variable.  Be sure that your tasks and actions can complete within that window, or else raise that shutdown limit.</p>
 
 <h2 id="windows-specific-notes">Windows-Specific Notes</h2>
 
@@ -4058,7 +4058,7 @@ notice: cluster <span class="nb">complete</span>, Bye!
 <span class="nx">describe</span><span class="p">(</span><span class="s1">'Action: RandomNumber'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
 
   <span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">done</span><span class="p">){</span>
-    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+    <span class="nx">actionhero</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
       <span class="nx">api</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
       <span class="nx">done</span><span class="p">();</span>
     <span class="p">})</span>
