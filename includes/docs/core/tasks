@@ -93,7 +93,13 @@
       <span class="c1">// When we kill off a taskProcessor, should we disonnect that local redis connection?</span>
       <span class="na">toDisconnectProcessors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="c1">// What redis server should we connect to for tasks / delayed jobs?</span>
-      <span class="na">redis</span><span class="p">:</span> <span class="nx">api</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">redis</span>
+      <span class="na">redis</span><span class="p">:</span> <span class="nx">api</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">redis</span><span class="p">,</span>
+      <span class="c1">// Customize Resque primitives, replace null with required replacement.</span>
+      <span class="na">resque_overrides</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">queue</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="na">multiWorker</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="na">scheduler</span><span class="p">:</span> <span class="kc">null</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -385,6 +391,65 @@ You could also configure more nodes to work on the <code class="prettyprint">hig
 <p>Because there are no &#39;heartbeats&rsquo; in resque, it is impossible for the application to know if a worker has been working on a long job or it is dead. You are required to provide an &ldquo;age&rdquo; for how long a worker has been &ldquo;working&rdquo;, and all those older than that age will be removed, and the job they are working on moved to the error queue (where you can then use <code class="prettyprint">api.tasks.retryAndRemoveFailed</code>) to re-enqueue the job.</p>
 
 <p>You can handle this with an own initializer and the following logic =&gt;</p>
+
+<h2 id="extending-resque">Extending Resque</h2>
+
+<p>In cases where you would like to extend or modify the underlying behaviour or capabilities of Resque you can specify 
+replacements for the Queues, Scheduler, or Multi Worker implementations in the Tasks configuration.</p>
+<pre class="highlight javascript"><code><span class="c1">// From /config/tasks.js:</span>
+<span class="kd">var</span> <span class="nx">myQueue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../util/myQueue.js'</span><span class="p">);</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">tasks</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">api</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="p">...</span>
+      <span class="c1">// Customize Resque primitives, replace null with required replacement.</span>
+      <span class="na">resque_overrides</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">queue</span><span class="p">:</span> <span class="nx">myQueue</span><span class="p">,</span>  <span class="c1">//&lt;-- Explicitly pass replacement Queue implementation</span>
+        <span class="na">multiWorker</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="na">scheduler</span><span class="p">:</span> <span class="kc">null</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="c1">//From util/myQueue.js:</span>
+<span class="kd">var</span> <span class="nx">NR</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-resque'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">pluginRunner</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../node_modules/node-resque/lib/pluginRunner.js'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">myQueue</span> <span class="o">=</span> <span class="nx">NR</span><span class="p">.</span><span class="nx">queue</span><span class="p">;</span>
+
+<span class="nx">myQueue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">enqueueFront</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">args</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">){</span>
+   <span class="nx">callback</span> <span class="o">=</span> <span class="nx">args</span><span class="p">;</span>
+   <span class="nx">args</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">){</span>
+   <span class="nx">args</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+
+  <span class="nx">args</span> <span class="o">=</span> <span class="nx">arrayify</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">job</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">jobs</span><span class="p">[</span><span class="nx">func</span><span class="p">];</span>
+  <span class="nx">pluginRunner</span><span class="p">.</span><span class="nx">runPlugins</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="s1">'before_enqueue'</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">q</span><span class="p">,</span> <span class="nx">job</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">){</span>
+   <span class="k">if</span><span class="p">(</span><span class="nx">toRun</span> <span class="o">===</span> <span class="kc">false</span><span class="p">){</span>
+     <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">callback</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">){</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">);</span> <span class="p">}</span>
+   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+     <span class="nx">self</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">redis</span><span class="p">.</span><span class="nx">sadd</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">key</span><span class="p">(</span><span class="s1">'queues'</span><span class="p">),</span> <span class="nx">q</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+       <span class="nx">self</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">redis</span><span class="p">.</span><span class="nx">lpush</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">key</span><span class="p">(</span><span class="s1">'queue'</span><span class="p">,</span> <span class="nx">q</span><span class="p">),</span> <span class="nx">self</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">args</span><span class="p">),</span> <span class="kd">function</span><span class="p">(){</span>
+         <span class="nx">pluginRunner</span><span class="p">.</span><span class="nx">runPlugins</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="s1">'after_enqueue'</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">q</span><span class="p">,</span> <span class="nx">job</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+           <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">callback</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">){</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">toRun</span><span class="p">);</span> <span class="p">}</span>
+         <span class="p">});</span>
+       <span class="p">});</span>
+     <span class="p">});</span>
+   <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">myQueue</span><span class="p">;</span>
+</code></pre>
+
+<p>The above example will give you access to <code class="prettyprint">api.resque.queue.enqueueFront()</code>, which you could use directly or wrap by 
+extending the <code class="prettyprint">api.tasks</code> object.</p>
 
 <h2 id="notes">Notes</h2>
 
