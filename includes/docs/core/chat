@@ -33,6 +33,12 @@
 <li>The <code class="prettyprint">context</code> of messages sent with <code class="prettyprint">api.chatRoom.broadcast</code> always be <code class="prettyprint">user</code> to differentiate these responses from a <code class="prettyprint">responsee</code> to a request</li>
 </ul>
 
+<h3 id="api-chatroom-list-callback">api.chatRoom.list(callback)</h3>
+
+<ul>
+<li>callback will return (error, [rooms])</li>
+</ul>
+
 <h3 id="api-chatroom-add-room-callback">api.chatRoom.add(room, callback)</h3>
 
 <ul>
