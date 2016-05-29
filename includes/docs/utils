@@ -1,13 +1,6 @@
 <h1 id="utils">Utils</h1>
 
-<p>ActionHero ships with a few utility methods exposed for your convince: </p>
-
-<h3 id="api-utils-hashlength-obj">api.utils.hashLength(obj)</h3>
-
-<ul>
-<li>calculates the &lsquo;size&rsquo; of primary, top level keys in the hash</li>
-<li><code class="prettyprint">api.utils.hashLength({a: 1, b: 2})</code> would be 2</li>
-</ul>
+<p>ActionHero ships with a few utility methods exposed for your convince:</p>
 
 <h3 id="api-utils-hashmerge-a-b">api.utils.hashMerge(a, b)</h3>
 
@@ -19,7 +12,7 @@
 <h3 id="api-utils-isplainobject-object">api.utils.isPlainObject(object)</h3>
 
 <ul>
-<li>determines if <code class="prettyprint">object</code> is a plain js &#39;Object&rsquo; or somethign more complex, like a stream</li>
+<li>determines if <code class="prettyprint">object</code> is a plain js &lsquo;Object&rsquo; or somethign more complex, like a stream</li>
 </ul>
 
 <h3 id="api-utils-arrayuniqueify-arr">api.utils.arrayUniqueify(arr)</h3>

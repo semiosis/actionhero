@@ -48,7 +48,6 @@
 
   <span class="c1">// UTILS //</span>
   <span class="na">utils</span><span class="p">:{</span>
-    <span class="na">hashLength</span><span class="p">:</span>             <span class="p">[</span><span class="nb">Function</span><span class="p">],</span>
     <span class="na">hashMerge</span><span class="p">:</span>              <span class="p">[</span><span class="nb">Function</span><span class="p">],</span>
     <span class="na">isPlainObject</span><span class="p">:</span>          <span class="p">[</span><span class="nb">Function</span><span class="p">],</span>
     <span class="na">arrayUniqueify</span><span class="p">:</span>         <span class="p">[</span><span class="nb">Function</span><span class="p">],</span>
