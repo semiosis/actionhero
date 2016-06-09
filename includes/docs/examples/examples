@@ -21,13 +21,13 @@
 
 <p><strong><a href="https://gist.github.com/4326070">oauth</a></strong>: This file is actually 2 actions which are needed to authenticate a user against twitter&rsquo;s API.  Note the use of <code class="prettyprint">api.cache</code> to save and load the temporary secret tokens, and how to send custom (redirect) headers with actionhero</p>
 
-<p><strong><a href="http://blog.evantahler.com/blog/authentication-with-actionHero-again.html">Authentication Example</a></strong>: This example contains a working user system (auth, login, user creation, sessions, etc) using redis.</p>
+<p><strong><a href="https://blog.evantahler.com/authentication-with-actionhero-again-b197f406532f">Authentication Example</a></strong>: This example contains a working user system (auth, login, user creation, sessions, etc) using redis.</p>
 
 <p><strong><em><a href="https://gist.github.com/evantahler/5898472">Tic-Tac-Toe API</a></em></strong> This advanced example demonstrates how to create actions (and initializers) which will enable you to play tic-tac-toe against an AI Player.</p>
 
 <h2 id="example-clients">Example Clients</h2>
 
-<p><strong><a href="https://github.com/evantahler/actionhero-client">node via TCP</a></strong>: You can talk to an actionhero server from another node project over TCP directly using this package. </p>
+<p><strong><a href="https://github.com/evantahler/actionhero-client">node via TCP</a></strong>: You can talk to an actionhero server from another node project over TCP directly using this package.</p>
 
 <p><strong><a href="https://github.com/evantahler/actionhero/blob/master/test/servers/web.js">node via HTTP/connect</a></strong>: actionhero has a robust test suite for the web server which users connect.</p>
 
