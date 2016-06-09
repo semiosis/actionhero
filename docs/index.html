@@ -2719,7 +2719,17 @@ If your plugin was installed via NPM, also be sure to remove it from your packag
       <span class="na">serverInformation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">requestorInformation</span><span class="p">:</span> <span class="kc">true</span>
     <span class="p">},</span>
-    <span class="na">returnErrorCodes</span><span class="p">:</span> <span class="kc">false</span>              <span class="c1">// When true, returnErrorCodes will modify the response header for http(s) clients if connection.error is not null. You can also set connection.rawConnection.responseHttpCode to specify a code per request.</span>
+    <span class="c1">// When true, returnErrorCodes will modify the response header for http(s) clients if connection.error is not null.</span>
+    <span class="c1">// You can also set connection.rawConnection.responseHttpCode to specify a code per request.</span>
+    <span class="na">returnErrorCodes</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// should this node server attempt to gzip responses if the client can accept them?</span>
+    <span class="c1">// this will slow down the performance of actionhero, and if you need this funcionality, it is recommended that you do this upstream with nginx or your load balancer</span>
+    <span class="na">compress</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="c1">// options to pass to the query parser</span>
+    <span class="c1">// learn more about the options @ https://github.com/hapijs/qs</span>
+    <span class="na">queryParseOptions</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="c1">// when true, an ETAG Header will be provided with each requested static file for caching reasons</span>
+    <span class="na">enableEtag</span><span class="p">:</span> <span class="kc">true</span>  
   <span class="p">}</span>
 <span class="p">}</span>  
 </code></pre>
