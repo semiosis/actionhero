@@ -24,7 +24,7 @@ module.exports = {
       api.config.redis.pkg = api.config.redis['package'];
     }
 
-    var redisPackage = require(api.config.redis.pkg);
+    var redisPackage = process.type === 'renderer' ? require('electron').remote.require(api.config.redis.pkg) : require(api.config.redis.pkg);
     if(api.config.redis.pkg === 'fakeredis'){
       api.log('running with fakeredis', 'warning');
       redisPackage.fast = true;
